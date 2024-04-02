@@ -4,7 +4,9 @@ export const fetchUsers = createAsyncThunk(
   "users/fetchUsers", // Changing action type to namespace it under 'users'
   async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/users");
+      const response = await fetch(
+        "https://team-users-application.onrender.com/api/users"
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch");
       }

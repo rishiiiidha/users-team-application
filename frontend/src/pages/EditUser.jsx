@@ -18,7 +18,9 @@ const EditUser = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const { data } = await axios.get(`http://localhost:3000/api/users/${id}`);
+      const { data } = await axios.get(
+        `https://team-users-application.onrender.com/api/users/${id}`
+      );
       setUserData(data);
       setFirstName(data.first_name);
       setLastName(data.last_name);
@@ -82,7 +84,10 @@ const EditUser = () => {
      available: available,
    };
    try {
-     await axios.put(`http://localhost:3000/api/users/${id}`, updatedUserData);
+     await axios.put(
+       `https://team-users-application.onrender.com/api/users/${id}`,
+       updatedUserData
+     );
      alert("User edited successfully");
      navigate("/api/users");
    } catch (error) {

@@ -31,7 +31,7 @@ const Users = () => {
       setSelectDomain(false);
       setSelectGender(false);
       const { data } = await axios.get(
-        `http://localhost:3000/api/users?name=${name}&&domain=${domain}&&gender=${gender}&&available=${available}`
+        `https://team-users-application.onrender.com/api/users?name=${name}&&domain=${domain}&&gender=${gender}&&available=${available}`
       );
       console.log(data);
       if (data.users.length === 0) {
