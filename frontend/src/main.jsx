@@ -29,7 +29,7 @@ const router = createBrowserRouter(
       <Route path="/api/users" element={<Users />} />
       <Route path="/api/users/edit/:id" element={<EditUser />} />
       <Route path="/api/users/add" element={<AddUser />} />
-      <Route path="/api/users/team" element={< Team/>} />
+      <Route path="/api/users/team" element={<Team />} />
       <Route path="/api/users/team/create" element={<CreateTeam />} />
       <Route path="/api/users/team/view" element={<ViewTeam />} />
     </Route>

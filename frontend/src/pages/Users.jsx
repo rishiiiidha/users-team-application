@@ -17,6 +17,28 @@ const Users = () => {
   const domainRef = useRef(null);
   const genderRef = useRef(null);
 
+  const genders = [
+    "Male",
+    "Female",
+    "Transgender",
+    "Agender",
+    "Genderqueer",
+    "Bigender",
+    "Genderfluid",
+    "Polygender",
+    "Non-binary",
+  ];
+
+  const domains = [
+    "Sales",
+    "IT",
+    "UI Designing",
+    "Finance",
+    "Marketing",
+    "Management",
+    "Business Development",
+  ];
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -46,7 +68,7 @@ const Users = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3000/api/users?name=${name}&&domain=${domain}&&gender=${gender}&&available=${available}`
+        `https://team-users-application.onrender.com/api/users?name=${name}&&domain=${domain}&&gender=${gender}&&available=${available}`
       )
       .then((res) => {
         setData(res.data.users);
@@ -62,7 +84,7 @@ const Users = () => {
       setSelectDomain(false);
       setSelectGender(false);
       const { data } = await axios.get(
-        `http://localhost:3000/api/users?name=${name}&&domain=${domain}&&gender=${gender}&&available=${available}`
+        `https://team-users-application.onrender.com/api/users?name=${name}&&domain=${domain}&&gender=${gender}&&available=${available}`
       );
       if (data.users.length === 0) {
         alert("No users found");
@@ -140,20 +162,20 @@ const Users = () => {
             </button>
 
             {selectDomain && (
-              <div className="absolute mt-2 w-32 z-10 rounded-xl border-2 border-gray-700 max-h-60 overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-400">
+              <div className="absolute mt-2 w-32 z-10 no-scrollbar rounded-xl border-2 border-gray-700 max-h-60 overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-400">
                 <ul
                   className="py-2 bg-gray-950 text-sm text-gray-700 dark:text-gray-200"
                   aria-labelledby="domainDropdownButton"
                 >
-                  {totaldata.map((user, index) => (
+                  {domains.map((dom, index) => (
                     <li
                       key={index}
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      className="block px-4 py-2  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       onClick={() => {
-                        setDomain(user.domain || "");
+                        setDomain(dom || "");
                       }}
                     >
-                      {user.domain}
+                      {dom}
                     </li>
                   ))}
                 </ul>
@@ -190,20 +212,20 @@ const Users = () => {
             </button>
 
             {selectGender && (
-              <div className="absolute mt-2 rounded-xl w-32 z-10 border-2 border-gray-700 max-h-60 mx-2 overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-400">
+              <div className="absolute mt-2 rounded-xl no-scrollbar w-32 z-10 border-2 border-gray-700 max-h-60 mx-2 overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-400">
                 <ul
                   className="py-2 text-sm bg-gray-950 text-gray-700 dark:text-gray-200"
                   aria-labelledby="genderDropdownButton"
                 >
-                  {totaldata.map((user, index) => (
+                  {genders.map((gen, index) => (
                     <li
                       key={index}
                       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       onClick={() => {
-                        setGender(user.gender || "");
+                        setGender(gen || "");
                       }}
                     >
-                      {user.gender}
+                      {gen}
                     </li>
                   ))}
                 </ul>

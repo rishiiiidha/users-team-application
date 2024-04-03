@@ -53,7 +53,10 @@ const AddUser = () => {
     };
 
     try {
-      await axios.post("http://localhost:3000/api/users", newUser);
+      await axios.post(
+        "https://team-users-application.onrender.com/api/users",
+        newUser
+      );
       alert("User added successfully");
       navigate("/api/users");
     } catch (error) {
