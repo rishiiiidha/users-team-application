@@ -33,12 +33,11 @@ const Users = () => {
       const { data } = await axios.get(
         `https://team-users-application.onrender.com/api/users?name=${name}&&domain=${domain}&&gender=${gender}&&available=${available}`
       );
-      console.log(data);
       if (data.users.length === 0) {
         alert("No users found");
         setData(totaldata);
       } else {
-        setData(data.users);
+        data && setData(data.users);
       }
       setName("");
     } catch (err) {
@@ -87,7 +86,7 @@ const Users = () => {
             <button
               id="domainDropdownButton"
               data-dropdown-toggle="dropdown"
-              className="text-white h-9   font-medium rounded-lg text-sm p-5  text-center inline-flex items-center bg-gray-950"
+              className="text-white h-9   font-medium rounded-lg text-sm p-5 m-2  text-center inline-flex items-center bg-gray-950"
               type="button"
               onClick={() => {
                 setSelectDomain(!selectDomain);
@@ -137,7 +136,7 @@ const Users = () => {
             <button
               id="genderDropdownButton"
               data-dropdown-toggle="dropdown"
-              className="text-white h-9   font-medium rounded-lg text-sm p-5 mx-2 text-center inline-flex items-center bg-gray-950"
+              className="text-white h-9  m-2 font-medium rounded-lg text-sm p-5 mx-2 text-center inline-flex items-center bg-gray-950"
               type="button"
               onClick={() => {
                 setSelectGender(!selectGender);
@@ -193,7 +192,7 @@ const Users = () => {
                 : available
                 ? "bg-green-900"
                 : "bg-red-950"
-            } text-white px-4 py-2 ml-2`}
+            } text-white px-4 py-2 m-2 ml-2`}
           >
             {available === null
               ? "Availability"
@@ -203,7 +202,7 @@ const Users = () => {
           </button>
           <button
             onClick={handleClear}
-            className="rounded-lg bg-gray-950 text-white px-4 py-2 ml-2"
+            className="rounded-lg bg-gray-950 text-white px-4 m-2 py-2 ml-2"
           >
             Clear
           </button>
