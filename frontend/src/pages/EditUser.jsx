@@ -19,7 +19,7 @@ const EditUser = () => {
   const fetchData = useCallback(async () => {
     try {
       const { data } = await axios.get(
-        `https://team-users-application.onrender.com/api/users/${id}`
+        `http://localhost:3000/api/users/${id}`
       );
       setUserData(data);
       setFirstName(data.first_name);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Card from "../componenets/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../redux/slices/userSlice";
@@ -14,24 +14,55 @@ const Users = () => {
   const [gender, setGender] = useState("");
   const [available, setAvailable] = useState(null);
   const dispatch = useDispatch();
+  const domainRef = useRef(null);
+  const genderRef = useRef(null);
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [fetchUsers]);
+    const handleClickOutside = (event) => {
+      if (
+        domainRef.current &&
+        !domainRef.current.contains(event.target) &&
+        selectDomain
+      ) {
+        setSelectDomain(false);
+      }
 
-  const state = useSelector((state) => state);
+      if (
+        genderRef.current &&
+        !genderRef.current.contains(event.target) &&
+        selectGender
+      ) {
+        setSelectGender(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [selectDomain, selectGender]);
 
   useEffect(() => {
-    state.user.data && setData(state.user.data.users);
-    state.user.data && setTotalData(state.user.data.users);
-  }, [state.user.data]);
+    axios
+      .get(
+        `http://localhost:3000/api/users?name=${name}&&domain=${domain}&&gender=${gender}&&available=${available}`
+      )
+      .then((res) => {
+        setData(res.data.users);
+        setTotalData(res.data.users);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [name, domain, gender, available]);
 
   const handleSearch = async () => {
     try {
       setSelectDomain(false);
       setSelectGender(false);
       const { data } = await axios.get(
-        `https://team-users-application.onrender.com/api/users?name=${name}&&domain=${domain}&&gender=${gender}&&available=${available}`
+        `http://localhost:3000/api/users?name=${name}&&domain=${domain}&&gender=${gender}&&available=${available}`
       );
       if (data.users.length === 0) {
         alert("No users found");
@@ -39,7 +70,6 @@ const Users = () => {
       } else {
         data && setData(data.users);
       }
-      setName("");
     } catch (err) {
       console.log("Error: ", err.message);
     }
@@ -73,8 +103,6 @@ const Users = () => {
             value={name}
             onChange={(e) => {
               setName(e.target.value);
-              console.log(name);
-              console.log(e.target.value);
             }}
             className="rounded-xl p-2 text-gray-100 bg-gray-800"
           />
@@ -82,7 +110,7 @@ const Users = () => {
           <button className="rounded-lg bg-gray-950 text-white px-4 py-2 m-2">
             Search
           </button>
-          <div className="relative">
+          <div className="relative" ref={domainRef}>
             <button
               id="domainDropdownButton"
               data-dropdown-toggle="dropdown"
@@ -132,7 +160,7 @@ const Users = () => {
               </div>
             )}
           </div>
-          <div className="relative">
+          <div className="relative" ref={genderRef}>
             <button
               id="genderDropdownButton"
               data-dropdown-toggle="dropdown"

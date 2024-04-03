@@ -1,30 +1,28 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 
-const teamSchema = mongoose.Schema(
-  {
-    creater_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-    group_name: {
-      type: String,
-      required: true,
-      minlength: 1,
-      maxlength: 50,
-    },
-    limit: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 100,
-    }
+const teamSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minlength: 1,
+    maxlength: 100,
   },
-  {
-    timestamps: true,
+  members: [
+    {
+      type: String,
+    },
+  ],
+});
+
+teamSchema.pre("save", function (next) {
+  if (this.members.length > 6) {
+    const err = new Error("Exceeded maximum number of members (6)");
+    next(err);
+  } else {
+    next();
   }
-);
+});
 
-const User = mongoose.model("User", userSchema);
+const Team = mongoose.model("Team", teamSchema);
 
-module.exports = teamSchema;
+module.exports = Team;

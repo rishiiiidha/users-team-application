@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const connection = require('./db/mongoose');
 const userRouter = require('./router/users-router')
+const teamRouter  = require('./router/teams-router');
 const cors = require('cors');
 const app = express();
 app.use(cors())
@@ -9,6 +10,7 @@ app.use(cors())
 connection();
 app.use(express.json())
 app.use(userRouter)
+app.use(teamRouter)
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -28,9 +28,7 @@ const Card = (props) => {
     e.preventDefault();
     try {
       console.log(props.book._id);
-      await axios.delete(
-        `https://team-users-application.onrender.com/api/users/${props.book._id}`
-      );
+      await axios.delete(`http://localhost:3000/api/users/${props.book._id}`);
       setDeleted(true);
       alert("User deleted successfully");
     } catch (error) {
@@ -122,7 +120,10 @@ const Card = (props) => {
         </div>
       </div>
     </div>
-  ) : null; // Return null if props.book does not exist
+  ) : null;
 };
 
+
 export default Card;
+
+

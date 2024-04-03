@@ -18,6 +18,9 @@ import {
 } from "react-router-dom";
 import EditUser from './pages/EditUser.jsx';
 import AddUser from './pages/AddUser.jsx';
+import CreateTeam from './pages/CreateTeam.jsx';
+import ViewTeam from './pages/ViewTeam.jsx';
+import Team from './pages/Team.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +29,9 @@ const router = createBrowserRouter(
       <Route path="/api/users" element={<Users />} />
       <Route path="/api/users/edit/:id" element={<EditUser />} />
       <Route path="/api/users/add" element={<AddUser />} />
+      <Route path="/api/users/team" element={< Team/>} />
+      <Route path="/api/users/team/create" element={<CreateTeam />} />
+      <Route path="/api/users/team/view" element={<ViewTeam />} />
     </Route>
   )
 );

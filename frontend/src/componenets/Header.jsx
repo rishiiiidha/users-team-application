@@ -6,11 +6,7 @@ const Header = () => {
     <header className="bg-gray-800 py-4">
       <div className="container flex justify-between items-center overflow-x-auto mx-auto">
         <div className="flex items-center overflow-x-auto">
-          <img
-            src={partnerImage}
-            alt="Logo"
-            className="h-10"
-          />
+          <img src={partnerImage} alt="Logo" className="h-10" />
         </div>
         <div className="flex items-center space-x-4">
           <a
@@ -25,12 +21,12 @@ const Header = () => {
           >
             Add User
           </NavLink>
-          <button className="bg-gray-950 text-white px-4 py-2 rounded hover:bg-gray-900">
-            Create Team
-          </button>
-          <button className="bg-gray-950 text-white px-4 py-2 rounded hover:bg-gray-900">
-            View Teams
-          </button>
+          <NavLink
+            to="/api/users/team"
+            className="bg-gray-950 text-white px-4 py-2 rounded hover:bg-gray-900"
+          >
+            Teams
+          </NavLink>
         </div>
       </div>
     </header>
