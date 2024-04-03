@@ -10,30 +10,29 @@ router.get("/api/users", async (req, res) => {
     if (req.query.name) {
       const searchTerm = req.query.name.toLowerCase();
       users = users.filter((user) =>
-      user.first_name.toLowerCase().includes(searchTerm)
+        user.first_name.toLowerCase().includes(searchTerm)
       );
     }
     if (req.query.domain) {
       const searchTerm = req.query.domain.toLowerCase();
       users = users.filter((user) =>
-      user.domain.toLowerCase().includes(searchTerm)
+        user.domain.toLowerCase().includes(searchTerm)
       );
     }
-    
+
     if (req.query.gender) {
       const searchTerm = req.query.gender.toLowerCase();
-      users = users.filter((user) =>
-      user.gender.toLowerCase() === searchTerm
-      );
+      users = users.filter((user) => user.gender.toLowerCase() === searchTerm);
     }
-    if (Boolean(req.query.available) !== undefined && req.query.available!="null") {
-     
-      if (req.query.available === "true")
-     { users = users.filter((user) => user.available === Boolean(req.query.available)
-      );
-         
-      }
-      else if (req.query.available === "false"){
+    if (
+      Boolean(req.query.available) !== undefined &&
+      req.query.available != "null"
+    ) {
+      if (req.query.available === "true") {
+        users = users.filter(
+          (user) => user.available === Boolean(req.query.available)
+        );
+      } else if (req.query.available === "false") {
         users = users.filter(
           (user) => user.available !== Boolean(req.query.available)
         );
@@ -41,7 +40,7 @@ router.get("/api/users", async (req, res) => {
     }
 
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 20;
+    const limit = parseInt(req.query.limit) || users.length - 1;
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
     const results = {};
