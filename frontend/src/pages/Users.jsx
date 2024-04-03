@@ -40,7 +40,7 @@ const Users = () => {
       } else {
         setData(data.users);
       }
-      setValue("");
+      setName("");
     } catch (err) {
       console.log("Error: ", err.message);
     }
@@ -72,9 +72,14 @@ const Users = () => {
             type="text"
             placeholder="Search"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+              console.log(name);
+              console.log(e.target.value);
+            }}
             className="rounded-xl p-2 text-gray-100 bg-gray-800"
           />
+
           <button className="rounded-lg bg-gray-950 text-white px-4 py-2 m-2">
             Search
           </button>
